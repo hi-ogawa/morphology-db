@@ -26,4 +26,9 @@ export class Form extends BaseEntity {
 
   @ManyToOne(() => Sentence, (sentence) => sentence.forms)
   sentence!: Sentence;
+
+  static async search(word: string): Promise<Form[]> {
+    const collection = await this.find({ word });
+    return collection;
+  }
 }

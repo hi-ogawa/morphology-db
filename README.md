@@ -10,6 +10,7 @@ done
 
 # Import data to sqlite
 npm install
+npm run build
 npm run db:reset
 npm run db:import -- data/*.conllu
 
