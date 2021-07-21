@@ -1,83 +1,8 @@
-import {
-  Entity,
-  BaseEntity,
-  Column,
-  OneToMany,
-  ManyToOne,
-  EntityManager,
-  getManager,
-} from "typeorm";
+import { EntityManager, getManager } from "typeorm";
+import { Form, Lemma, Sentence } from "./entity";
 import { Annotation, parseFile } from "./conllu";
-import { Db } from "./db";
 import { progressBar } from "./utils";
-
-@Entity()
-export class Lemma extends BaseEntity {
-  @Column({ primary: true, generated: true })
-  id!: number;
-
-  @Column({ unique: true })
-  word!: string;
-
-  @OneToMany(() => Form, (form) => form.lemma)
-  forms!: Form[];
-
-  static async findOrInsert(
-    word: string,
-    manager: EntityManager = getManager()
-  ): Promise<Lemma> {
-    let result = await manager.findOne(this, { word });
-    if (!result) {
-      result = manager.create(this, { word });
-      await result.save();
-    }
-    return result;
-  }
-}
-
-@Entity()
-export class Sentence extends BaseEntity {
-  @Column({ primary: true, generated: true })
-  id!: number;
-
-  @Column()
-  source!: string;
-
-  @Column()
-  sentId!: string;
-
-  @Column()
-  text!: string;
-
-  @OneToMany(() => Form, (form) => form.sentence)
-  forms!: Form[];
-}
-
-@Entity()
-export class Form extends BaseEntity {
-  @Column({ primary: true, generated: true })
-  id!: number;
-
-  @Column()
-  word!: string;
-
-  // Index within sentence
-  @Column()
-  index!: number;
-
-  // Part-of-speech
-  @Column()
-  upos!: string;
-
-  @Column()
-  features!: string;
-
-  @ManyToOne(() => Lemma, (lemma) => lemma.forms)
-  lemma!: Lemma;
-
-  @ManyToOne(() => Sentence, (sentence) => sentence.forms)
-  sentence!: Sentence;
-}
+import { Db } from "./db";
 
 export async function saveAnnotation(
   annotation: Annotation,

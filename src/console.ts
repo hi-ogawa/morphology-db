@@ -1,5 +1,5 @@
 import { createConnection } from "typeorm";
-export * from "./entities";
+export * from "./entity";
 
 export async function init() {
   await createConnection();

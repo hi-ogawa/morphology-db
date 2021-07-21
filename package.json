@@ -9,7 +9,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:reset": "typeorm schema:drop && typeorm schema:sync",
-    "db:import": "node build/entities.js",
+    "db:import": "node build/conllu-import.js",
     "console": "node -e 'global.g = require(\"./build/console.js\")' -i --experimental-repl-await"
   },
   "dependencies": {

@@ -1,26 +1,15 @@
 import "mocha";
 import * as assert from "assert";
 import { Db } from "./db";
-import { Lemma, Form, Sentence, saveAnnotation } from "./entities";
+import { Lemma, Form, Sentence } from "./entity";
+import { saveAnnotation } from "./conllu-import";
 import { example1 } from "./fixtures";
 
-describe("entities", () => {
-  const db = new Db();
-
-  before(async () => {
-    await db.connect();
-  });
-
-  after(async () => {
-    await db.close();
-  });
-
-  beforeEach(async () => {
-    await db.reset();
-  });
+describe("conllu-import", () => {
+  Db.mochaHooks();
 
   describe("saveAnnotation", () => {
-    it("example1", async () => {
+    it("case1", async () => {
       const [_raw, annotation] = example1;
       await saveAnnotation(annotation);
       assert.strictEqual(await Sentence.count(), 1);

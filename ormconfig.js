@@ -6,6 +6,6 @@ module.exports = [
       process.env.NODE_ENV === "test"
         ? ":memory:"
         : "data/ud-morphology.sqlite3",
-    entities: ["build/entities.js"],
+    entities: ["build/entity/index.js"],
   },
 ];
