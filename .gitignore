@@ -4,3 +4,4 @@
 /data/*.sqlite3
 /data/*.sqlite3.backup
 /data/*.sqlite3-journal
+/logs/*.log

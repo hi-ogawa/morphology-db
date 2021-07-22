@@ -2,25 +2,31 @@ import { RequestHandler, ErrorRequestHandler } from "express";
 import { json } from "body-parser";
 import * as cors from "cors";
 import * as morgan from "morgan";
-import { config } from "../config";
 import { ValidationError } from "./validation";
 import { NotFoundError } from "../utils";
+import { logger, loggerMorgan } from "../logger";
 
+//
+// Middlewares
+//
 export const middlewares: RequestHandler[] = [
-  (_req, _res, next) => next(), // no-op handler since `Express.use` expects one handler at least)
+  morgan("combined", { stream: loggerMorgan }),
+  cors({ origin: "*" }),
+  json(),
 ];
-if (config.ENV !== "test") {
-  middlewares.push(morgan("combined"));
-}
-middlewares.push(cors({ origin: "*" }));
-middlewares.push(json());
 
+//
+// Not found handler
+//
 export const onNotFound: RequestHandler = (req, res, _next) => {
   res
     .status(404)
     .json({ status: "error", message: `Not found ${req.originalUrl}` });
 };
 
+//
+// Error handler
+//
 export const onError: ErrorRequestHandler = (error, req, res, next) => {
   if (error instanceof NotFoundError) {
     onNotFound(req, res, next);
@@ -34,6 +40,6 @@ export const onError: ErrorRequestHandler = (error, req, res, next) => {
     });
     return;
   }
-  console.error(error);
+  logger.error(error);
   res.status(500).json({ status: "error", message: error.toString() });
 };
