@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { zip } from "lodash";
 
 export interface WordLine {
   // id: string;
@@ -28,6 +29,37 @@ function parseRecord(s: string): Record<string, string> {
   return result;
 }
 
+// cf. https://github.com/UniversalDependencies/UD_Russian-Taiga/issues/4
+const RE_MIXED = /([а-яА-Я][a-zA-Z])|([a-zA-Z][а-яА-Я])/;
+const HOMOGLYPH_EN = "abcekmoptxyABCEHKMOPTXY";
+const HOMOGLYPH_RU = "аьсекмортхуАВСЕНКМОРТХУ";
+const HOMOGLYPH_EN_TO_RU = new Map(
+  zip([...HOMOGLYPH_EN], [...HOMOGLYPH_RU])
+) as Map<string, string>;
+
+function translate(s: string, table: Map<string, string>): string {
+  let t = "";
+  for (const c of s) {
+    t += table.get(c) ?? c;
+  }
+  return t;
+}
+
+function fixHomoglyph(word: string): string {
+  if (!word.match(RE_MIXED)) {
+    return word;
+  }
+  return translate(word, HOMOGLYPH_EN_TO_RU);
+}
+
+export function normalize(word: string): string {
+  // Fix homoglyph
+  word = fixHomoglyph(word);
+  // Force lower case
+  word = word.toLowerCase();
+  return word;
+}
+
 export function parseAnnotation(raw: string): Annotation {
   const lines = raw.trim().split("\n");
   const result: Annotation = {
@@ -50,9 +82,10 @@ export function parseAnnotation(raw: string): Annotation {
     }
     const [_id, form, lemma, upos, _xpos, feats, _head, _deprel, _deps, _misc] =
       tokens;
+    const isSpecial = upos === "PROPN" || feats.includes("Foreign=Yes");
     result.words.push({
-      form,
-      lemma,
+      form: isSpecial ? normalize(form) : form,
+      lemma: isSpecial ? normalize(lemma) : lemma,
       upos,
       feats,
     });

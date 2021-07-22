@@ -24,8 +24,8 @@ export const example1: Example = [
     },
     words: [
       {
-        form: "Безгачиха",
-        lemma: "Безгачиха",
+        form: "безгачиха",
+        lemma: "безгачиха",
         upos: "PROPN",
         feats: "Animacy=Inan|Case=Nom|Gender=Fem|Number=Sing",
       },
