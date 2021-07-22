@@ -2,11 +2,11 @@ import "mocha";
 import * as assert from "assert";
 import * as supertest from "supertest";
 import { app } from "./app";
-import { Db } from "../db";
 import { Form } from "../entity";
+import { dbHooks, dbFixtures } from "../test-helper";
 
 describe("app", () => {
-  Db.mochaHooks();
+  dbHooks();
 
   describe("/forms/search", () => {
     it("case1", async () => {
@@ -27,7 +27,7 @@ describe("app", () => {
     });
 
     it("case3", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const word = "районе";
       const res = await supertest(app).get("/forms/search").query({ word });
       assert.strictEqual(res.statusCode, 200);
@@ -51,7 +51,7 @@ describe("app", () => {
     });
 
     it("case2", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const form = await Form.findOne();
       const id = form!.id;
       const res = await supertest(app).get(`/forms/${id}`);
@@ -62,7 +62,7 @@ describe("app", () => {
 
   describe("/lemmas/search", () => {
     it("case1", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const word = "район";
       const res = await supertest(app).get(`/lemmas/search`).query({ word });
       assert.strictEqual(res.statusCode, 200);
@@ -77,7 +77,7 @@ describe("app", () => {
 
   describe("/lemmas/:id", () => {
     it("case1", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const id = 6;
       const res = await supertest(app).get(`/lemmas/${id}`);
       assert.strictEqual(res.statusCode, 200);
@@ -99,7 +99,7 @@ describe("app", () => {
 
   describe("/sentences/:id", () => {
     it("case1", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const id = 1;
       const res = await supertest(app).get(`/sentences/${id}`);
       assert.strictEqual(res.statusCode, 200);
@@ -119,7 +119,7 @@ describe("app", () => {
 
   describe("/search", () => {
     it("case1", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const word = "районе";
       const res = await supertest(app).get(`/search`).query({ word });
       assert.strictEqual(res.statusCode, 200);

@@ -1,12 +1,12 @@
 import "mocha";
 import * as assert from "assert";
-import { Db } from "./db";
 import { Lemma, Form, Sentence } from "./entity";
 import { saveAnnotation } from "./conllu-import";
 import { example1 } from "./fixtures";
+import { dbHooks } from "./test-helper";
 
 describe("conllu-import", () => {
-  Db.mochaHooks();
+  dbHooks();
 
   describe("saveAnnotation", () => {
     it("case1", async () => {

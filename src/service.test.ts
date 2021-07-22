@@ -1,10 +1,10 @@
 import "mocha";
 import * as assert from "assert";
 import { Service } from "./service";
-import { Db } from "./db";
+import { dbHooks, dbFixtures } from "./test-helper";
 
 describe("Service", () => {
-  Db.mochaHooks();
+  dbHooks();
 
   describe("search", () => {
     it("case1", async () => {
@@ -14,7 +14,7 @@ describe("Service", () => {
     });
 
     it("case2", async () => {
-      await Db.fixtures();
+      await dbFixtures();
       const word = "районе";
       const result = await Service.search(word);
       assert.strictEqual(result?.word, "район");

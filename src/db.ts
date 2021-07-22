@@ -1,7 +1,4 @@
 import { Connection, createConnection } from "typeorm";
-import { before, after, beforeEach } from "mocha";
-import { example1 } from "./fixtures";
-import { saveAnnotation } from "./conllu-import";
 
 export class Db {
   connection?: Connection;
@@ -27,17 +24,6 @@ export class Db {
     await db.connect();
     await handler(db.connection!);
     await db.close();
-  }
-
-  static mochaHooks() {
-    let db = new Db();
-    before(db.connect);
-    after(db.close);
-    beforeEach(db.reset);
-  }
-
-  static async fixtures() {
-    await saveAnnotation(example1[1]);
   }
 
   static async initialize() {

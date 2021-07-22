@@ -8,6 +8,7 @@ interface FuzzySearchResult {
 
 export class Service {
   static async search(word: string): Promise<Lemma | undefined> {
+    // TODO: Return with sentence data for each form
     let lemma = await Lemma.findOne({ word }, { relations: ["forms"] });
     if (!lemma) {
       const form = await Form.findOne({ word }, { relations: ["lemma"] });

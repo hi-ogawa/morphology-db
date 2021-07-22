@@ -1,10 +1,10 @@
 import "mocha";
 import * as assert from "assert";
 import { Lemma } from "./";
-import { Db } from "../db";
+import { dbHooks } from "../test-helper";
 
 describe("entity", () => {
-  Db.mochaHooks();
+  dbHooks();
 
   describe("Lemma", () => {
     describe("findOrInsert", () => {
