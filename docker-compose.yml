@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  # Locally run by
+  #   docker-compose up backend
+  backend:
+    image: hiogawa/morphology-db
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: runner
+    ports:
+      - 8080:8080
+
+  # Testing in a same environment as production
+  #   docker-compose run test
+  test:
+    command: npm run test
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: builder

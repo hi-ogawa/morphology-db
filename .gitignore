@@ -5,3 +5,4 @@
 /data/*.sqlite3.backup
 /data/*.sqlite3-journal
 /logs/*.log
+/run.sh

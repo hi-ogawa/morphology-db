@@ -1,0 +1,8 @@
+*
+!package.json
+!package-lock.json
+!tsconfig.json
+!ormconfig.js
+!.mocharc.js
+!src
+!data/morphology.sqlite3
