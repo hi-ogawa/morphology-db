@@ -17,6 +17,6 @@ draw("get", "/lemmas/:id",      LemmasController,     "show");
 
 draw("get", "/sentences/:id",   SentencesController,  "show");
 
-draw("get", "/morphology",      HomeController,       "morphology");
+draw("get", "/search",          HomeController,       "search");
 draw("get", "/fuzzy-search",    HomeController,       "fuzzySearch");
 }

@@ -35,3 +35,18 @@ export function* progressBar<T>(
   }
   ostr.write("\n");
 }
+
+//
+// Type assertion
+//
+
+export function assertDefined<T, E extends Error>(
+  x: T,
+  error?: E
+): asserts x is NonNullable<T> {
+  if (x === undefined || x === null) {
+    throw error ?? new Error("assertDefined");
+  }
+}
+
+export class NotFoundError extends Error {}

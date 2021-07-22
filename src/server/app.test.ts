@@ -117,15 +117,39 @@ describe("app", () => {
     });
   });
 
-  describe("/morphology", () => {
-    it.skip("case1", async () => {
-      await supertest(app).get(`/morphology`);
+  describe("/search", () => {
+    it("case1", async () => {
+      await Db.fixtures();
+      const word = "районе";
+      const res = await supertest(app).get(`/search`).query({ word });
+      assert.strictEqual(res.statusCode, 200);
+      assert.deepStrictEqual(res.body.data, {
+        id: 6,
+        word: "район",
+        forms: [
+          {
+            features: "Animacy=Inan|Case=Loc|Gender=Masc|Number=Sing",
+            id: 6,
+            index: 5,
+            upos: "NOUN",
+            word: "районе",
+          },
+        ],
+      });
+    });
+
+    it("case2", async () => {
+      const word = "районе";
+      const res = await supertest(app).get(`/search`).query({ word });
+      assert.strictEqual(res.statusCode, 404);
     });
   });
 
-  describe("/fuzzy-search", () => {
-    it.skip("case1", async () => {
-      await supertest(app).get(`/fuzzy-search`);
+  describe.skip("/fuzzy-search", () => {
+    it("case1", async () => {
+      const word = "раион";
+      const res = await supertest(app).get(`/fuzzy-search`).query({ word });
+      assert.strictEqual(res.statusCode, 200);
     });
   });
 });

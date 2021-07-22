@@ -8,7 +8,7 @@ export class FormsController extends ApplicationController {
       { id },
       { relations: ["lemma", "sentence"] }
     );
-    this.assertDefined(entity);
+    this.assertFound(entity);
     this.render(entity);
   }
 

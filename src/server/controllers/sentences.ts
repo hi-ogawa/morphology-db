@@ -6,7 +6,7 @@ export class SentencesController extends ApplicationController {
     const { id } = this.validate("idParam", this.req.params);
     // TODO: order forms by index?
     const entity = await Sentence.findOne({ id }, { relations: ["forms"] });
-    this.assertDefined(entity);
+    this.assertFound(entity);
     this.render(entity);
   }
 }

@@ -4,7 +4,7 @@ import * as cors from "cors";
 import * as morgan from "morgan";
 import { config } from "../config";
 import { ValidationError } from "./validation";
-import { NotFoundError } from "./controllers/application";
+import { NotFoundError } from "../utils";
 
 export const middlewares: RequestHandler[] = [
   (_req, _res, next) => next(), // no-op handler since `Express.use` expects one handler at least)

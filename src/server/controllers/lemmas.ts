@@ -5,7 +5,7 @@ export class LemmasController extends ApplicationController {
   async show() {
     const { id } = this.validate("idParam", this.req.params);
     const entity = await Lemma.findOne({ id }, { relations: ["forms"] });
-    this.assertDefined(entity);
+    this.assertFound(entity);
     this.render(entity);
   }
 

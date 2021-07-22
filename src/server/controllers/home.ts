@@ -2,9 +2,10 @@ import { ApplicationController } from "./application";
 import { Service } from "../../service";
 
 export class HomeController extends ApplicationController {
-  async morphology() {
+  async search() {
     const { word } = this.validate("wordParam", this.req.query);
-    const result = await Service.morphology(word);
+    const result = await Service.search(word);
+    this.assertFound(result);
     this.render(result);
   }
 
