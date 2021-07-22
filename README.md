@@ -18,7 +18,7 @@ npm run db:import -- data/*.conllu
 npm run console
 > await g.init()
 > await g.Lemma.count()
-61347
+59745
 > await g.Sentence.count()
 85789
 > await g.Form.count()
