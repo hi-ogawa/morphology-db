@@ -1,10 +1,15 @@
-import { Connection, createConnection } from "typeorm";
+import { Connection, createConnection, ConnectionOptionsReader } from "typeorm";
+import * as entities from "./entity";
 
 export class Db {
   connection?: Connection;
 
   connect = async () => {
-    this.connection = await createConnection();
+    const options = await new ConnectionOptionsReader().get("default");
+    this.connection = await createConnection({
+      ...options,
+      entities: Object.values(entities),
+    });
   };
 
   close = async () => {

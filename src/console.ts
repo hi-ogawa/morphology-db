@@ -1,6 +1,6 @@
-import { createConnection } from "typeorm";
 export * from "./entity";
+import { Db } from "./db";
 
 export async function init() {
-  await createConnection();
+  await Db.initialize();
 }

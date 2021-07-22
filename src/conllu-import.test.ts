@@ -1,5 +1,5 @@
 import "mocha";
-import * as assert from "assert";
+import assert from "assert";
 import { Lemma, Form, Sentence } from "./entity";
 import { saveAnnotation } from "./conllu-import";
 import { example1 } from "./fixtures";

@@ -3,6 +3,7 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "build:clean": "rm -rf build",
+    "build:rollup": "rollup --config",
     "test": "NODE_ENV=test mocha",
     "test:watch": "NODE_ENV=test mocha --watch",
     "test:inspect": "NODE_ENV=test mocha inspect",
@@ -14,6 +15,10 @@
     "server": "nodemon build/server/main"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.2",
+    "@rollup/plugin-typescript": "^8.2.3",
     "@types/body-parser": "^1.19.1",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
@@ -26,6 +31,8 @@
     "mocha": "^9.0.2",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
+    "rollup": "^2.53.3",
+    "rollup-plugin-terser": "^7.0.2",
     "supertest": "^6.1.4",
     "typescript": "^4.3.5"
   },

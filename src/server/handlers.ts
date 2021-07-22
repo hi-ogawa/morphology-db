@@ -1,7 +1,7 @@
 import { RequestHandler, ErrorRequestHandler } from "express";
 import { json } from "body-parser";
-import * as cors from "cors";
-import * as morgan from "morgan";
+import cors from "cors";
+import morgan from "morgan";
 import { ValidationError } from "./validation";
 import { NotFoundError } from "../utils";
 import { logger, loggerMorgan } from "../logger";

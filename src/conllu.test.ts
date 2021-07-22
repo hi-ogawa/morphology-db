@@ -1,5 +1,5 @@
 import "mocha";
-import * as assert from "assert";
+import assert from "assert";
 import { parseAnnotation, normalize } from "./conllu";
 import { example1 } from "./fixtures";
 

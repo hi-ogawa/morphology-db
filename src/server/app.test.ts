@@ -1,6 +1,6 @@
 import "mocha";
-import * as assert from "assert";
-import * as supertest from "supertest";
+import assert from "assert";
+import supertest from "supertest";
 import { app } from "./app";
 import { Form } from "../entity";
 import { dbHooks, dbFixtures } from "../test-helper";

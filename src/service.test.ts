@@ -1,5 +1,5 @@
 import "mocha";
-import * as assert from "assert";
+import assert from "assert";
 import { Service } from "./service";
 import { dbHooks, dbFixtures } from "./test-helper";
 

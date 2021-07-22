@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import { middlewares, onNotFound, onError } from "./handlers";
 import { routes } from "./routes";
 
