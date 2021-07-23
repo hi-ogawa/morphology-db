@@ -1,5 +1,5 @@
 import "mocha";
-import * as assert from "assert";
+import * as assert from "assert/strict";
 import { validate, ValidationError } from "./validation";
 
 describe("validation", () => {
@@ -7,13 +7,13 @@ describe("validation", () => {
     it("case1", () => {
       const params = { id: 1234 };
       validate("idParam", params);
-      assert.strictEqual(params.id, 1234);
+      assert.equal(params.id, 1234);
     });
 
     it("case2", () => {
       const params = { id: "1234" };
       validate("idParam", params);
-      assert.strictEqual(params.id, 1234);
+      assert.equal(params.id, 1234);
     });
 
     it("case3", () => {
@@ -22,7 +22,7 @@ describe("validation", () => {
         () => validate("idParam", params),
         (error) => {
           assert(error instanceof ValidationError);
-          assert.strictEqual(error.message, "data.id should be number");
+          assert.equal(error.message, "data.id should be number");
           return true;
         }
       );
@@ -34,7 +34,7 @@ describe("validation", () => {
         () => validate("idParam", params),
         (error) => {
           assert(error instanceof ValidationError);
-          assert.strictEqual(
+          assert.equal(
             error.message,
             "data should have required property 'id'"
           );

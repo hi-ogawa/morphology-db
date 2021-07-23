@@ -1,5 +1,5 @@
 import "mocha";
-import * as assert from "assert";
+import * as assert from "assert/strict";
 import { Service } from "./service";
 import { dbHooks, dbFixtures } from "./test-helper";
 
@@ -10,16 +10,16 @@ describe("Service", () => {
     it("case1", async () => {
       const word = "районе";
       const result = await Service.search(word);
-      assert.deepStrictEqual(result, []);
+      assert.deepEqual(result, []);
     });
 
     it("case2", async () => {
       await dbFixtures();
       const word = "районе";
       const result = await Service.search(word);
-      assert.strictEqual(result[0].word, "район");
-      assert.strictEqual(result[0].forms[0].word, "районе");
-      assert.strictEqual(
+      assert.equal(result[0].word, "район");
+      assert.equal(result[0].forms[0].word, "районе");
+      assert.equal(
         result[0].forms[0].sentence.text,
         "Безгачиха -- деревня в Бабушкинском районе Вологодской области."
       );
@@ -29,7 +29,7 @@ describe("Service", () => {
       await dbFixtures();
       const word = "район";
       const result = await Service.search(word);
-      assert.strictEqual(result[0].word, "район");
+      assert.equal(result[0].word, "район");
     });
   });
 
@@ -38,7 +38,7 @@ describe("Service", () => {
       await dbFixtures();
       const word = "раионе";
       const result = await Service.fuzzySearch(word);
-      assert.deepStrictEqual(result[0].word, "район");
+      assert.deepEqual(result[0].word, "район");
       assert.ok(typeof result[0].editdist, "number");
     });
   });

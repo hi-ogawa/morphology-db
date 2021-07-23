@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as assert from "assert";
+import * as assert from "assert/strict";
 import { Connection, getConnection } from "typeorm";
 import { SqliteDriver } from "typeorm/driver/sqlite/SqliteDriver";
 
