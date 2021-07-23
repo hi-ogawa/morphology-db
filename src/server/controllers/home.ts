@@ -5,7 +5,6 @@ export class HomeController extends ApplicationController {
   async search() {
     const { word } = this.validate("wordParam", this.req.query);
     const result = await Service.search(word);
-    this.assertFound(result);
     this.render(result);
   }
 

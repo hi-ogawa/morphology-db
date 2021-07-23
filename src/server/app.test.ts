@@ -123,25 +123,34 @@ describe("app", () => {
       const word = "районе";
       const res = await supertest(app).get(`/search`).query({ word });
       assert.strictEqual(res.statusCode, 200);
-      assert.deepStrictEqual(res.body.data, {
-        id: 6,
-        word: "район",
-        forms: [
-          {
-            features: "Animacy=Inan|Case=Loc|Gender=Masc|Number=Sing",
-            id: 6,
-            index: 5,
-            upos: "NOUN",
-            word: "районе",
-          },
-        ],
-      });
+      assert.deepStrictEqual(res.body.data, [
+        {
+          id: 6,
+          word: "район",
+          forms: [
+            {
+              features: "Animacy=Inan|Case=Loc|Gender=Masc|Number=Sing",
+              id: 6,
+              index: 5,
+              upos: "NOUN",
+              word: "районе",
+              sentence: {
+                id: 1,
+                sentId: "dev-s6",
+                source: "__default__",
+                text: "Безгачиха -- деревня в Бабушкинском районе Вологодской области.",
+              },
+            },
+          ],
+        },
+      ]);
     });
 
     it("case2", async () => {
       const word = "районе";
       const res = await supertest(app).get(`/search`).query({ word });
-      assert.strictEqual(res.statusCode, 404);
+      assert.strictEqual(res.statusCode, 200);
+      assert.deepStrictEqual(res.body.data, []);
     });
   });
 
@@ -151,10 +160,7 @@ describe("app", () => {
       const word = "раионе";
       const res = await supertest(app).get(`/fuzzy-search`).query({ word });
       assert.strictEqual(res.statusCode, 200);
-      assert.deepStrictEqual(res.body.data[0], {
-        word: "район",
-        editdist: 170,
-      });
+      assert.deepStrictEqual(res.body.data[0].word, "район");
     });
   });
 });

@@ -1,9 +1,10 @@
-import { Entity, BaseEntity, Column, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
+import { ApplicationEntity } from "./application";
 import { Lemma } from "./lemma";
 import { Sentence } from "./sentence";
 
 @Entity()
-export class Form extends BaseEntity {
+export class Form extends ApplicationEntity {
   @Column({ primary: true, generated: true })
   id!: number;
 

@@ -1,15 +1,9 @@
-import {
-  Entity,
-  BaseEntity,
-  Column,
-  OneToMany,
-  EntityManager,
-  getManager,
-} from "typeorm";
+import { Entity, Column, OneToMany, EntityManager, getManager } from "typeorm";
+import { ApplicationEntity } from "./application";
 import { Form } from "./form";
 
 @Entity()
-export class Lemma extends BaseEntity {
+export class Lemma extends ApplicationEntity {
   @Column({ primary: true, generated: true })
   id!: number;
 

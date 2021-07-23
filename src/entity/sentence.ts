@@ -1,8 +1,9 @@
-import { Entity, BaseEntity, Column, OneToMany } from "typeorm";
+import { Entity, Column, OneToMany } from "typeorm";
+import { ApplicationEntity } from "./application";
 import { Form } from "./form";
 
 @Entity()
-export class Sentence extends BaseEntity {
+export class Sentence extends ApplicationEntity {
   @Column({ primary: true, generated: true })
   id!: number;
 

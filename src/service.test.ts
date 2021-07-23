@@ -10,15 +10,26 @@ describe("Service", () => {
     it("case1", async () => {
       const word = "районе";
       const result = await Service.search(word);
-      assert.deepStrictEqual(result, undefined);
+      assert.deepStrictEqual(result, []);
     });
 
     it("case2", async () => {
       await dbFixtures();
       const word = "районе";
       const result = await Service.search(word);
-      assert.strictEqual(result?.word, "район");
-      assert.strictEqual(result?.forms[0].word, "районе");
+      assert.strictEqual(result[0].word, "район");
+      assert.strictEqual(result[0].forms[0].word, "районе");
+      assert.strictEqual(
+        result[0].forms[0].sentence.text,
+        "Безгачиха -- деревня в Бабушкинском районе Вологодской области."
+      );
+    });
+
+    it("case3", async () => {
+      await dbFixtures();
+      const word = "район";
+      const result = await Service.search(word);
+      assert.strictEqual(result[0].word, "район");
     });
   });
 
@@ -27,7 +38,8 @@ describe("Service", () => {
       await dbFixtures();
       const word = "раионе";
       const result = await Service.fuzzySearch(word);
-      assert.deepStrictEqual(result[0], { word: "район", editdist: 170 });
+      assert.deepStrictEqual(result[0].word, "район");
+      assert.ok(typeof result[0].editdist, "number");
     });
   });
 });
