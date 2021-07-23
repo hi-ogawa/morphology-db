@@ -22,5 +22,12 @@ describe("Service", () => {
     });
   });
 
-  describe("fuzzySearch", () => {});
+  describe("fuzzySearch", () => {
+    it("case1", async () => {
+      await dbFixtures();
+      const word = "раионе";
+      const result = await Service.fuzzySearch(word);
+      assert.deepStrictEqual(result[0], { word: "район", editdist: 170 });
+    });
+  });
 });

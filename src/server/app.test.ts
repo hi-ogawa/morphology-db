@@ -145,11 +145,16 @@ describe("app", () => {
     });
   });
 
-  describe.skip("/fuzzy-search", () => {
+  describe("/fuzzy-search", () => {
     it("case1", async () => {
-      const word = "раион";
+      await dbFixtures();
+      const word = "раионе";
       const res = await supertest(app).get(`/fuzzy-search`).query({ word });
       assert.strictEqual(res.statusCode, 200);
+      assert.deepStrictEqual(res.body.data[0], {
+        word: "район",
+        editdist: 170,
+      });
     });
   });
 });

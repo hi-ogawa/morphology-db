@@ -1,4 +1,5 @@
 import { Connection, createConnection } from "typeorm";
+import { initializeExtension } from "./sqlite-spellfix";
 
 export class Db {
   connection?: Connection;
@@ -15,7 +16,12 @@ export class Db {
   reset = async () => {
     await this.connection?.dropDatabase();
     await this.connection?.synchronize();
+    await initializeExtension(this.connection);
   };
+
+  async query(q: string) {
+    return this.connection?.createQueryRunner().query(q);
+  }
 
   static async withConnection(
     handler: (conn: Connection) => Promise<void>
@@ -29,5 +35,6 @@ export class Db {
   static async initialize() {
     const db = new Db();
     await db.connect();
+    await initializeExtension(db.connection);
   }
 }
