@@ -22,7 +22,7 @@ export class Service {
 
   static async fuzzySearch(
     word: string,
-    limit: number = 10
+    limit: number = 20
   ): Promise<FuzzySearchResult> {
     // TODO: Limit first character to match exactly?
     // TODO: Include Form word as well (currently too big since it includes duplicate words).
