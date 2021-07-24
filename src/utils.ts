@@ -19,21 +19,29 @@ export type Option<T> = T | undefined;
 //
 // Simple progress bar
 //
+interface ProgressBarOptions {
+  stream?: { write: (s: string) => void };
+  format?: (i: number, n: number) => string;
+  interval?: number;
+}
+
 export function* progressBar<T>(
   iterable: T[],
-  ostr = process.stderr,
-  prefix = ":: count = ",
-  interval = 10
+  {
+    stream = process.stderr,
+    format = (i, n) => `:: count = ${i}/${n}`,
+    interval = 1,
+  }: ProgressBarOptions = {}
 ): Iterable<T> {
-  const total = iterable.length;
-  ostr.write(`${prefix}0/${total}`);
+  const n = iterable.length;
+  stream.write(format(0, n));
   for (const [i, x] of iterable.entries()) {
     yield x;
-    if (i + 1 === total || (i + 1) % interval === 0) {
-      ostr.write(`\r${prefix}${i + 1}/${total}`);
+    if (i + 1 === n || (i + 1) % interval === 0) {
+      stream.write(`\r${format(i + 1, n)}`);
     }
   }
-  ostr.write("\n");
+  stream.write("\n");
 }
 
 //

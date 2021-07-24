@@ -31,7 +31,7 @@ export async function importFile(
   manager: EntityManager = getManager()
 ) {
   const annotations = await parseFile(infile);
-  for (const annotation of progressBar(annotations)) {
+  for (const annotation of progressBar(annotations, { interval: 10 })) {
     await saveAnnotation(annotation, infile, manager);
   }
 }
