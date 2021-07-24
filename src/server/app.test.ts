@@ -160,7 +160,7 @@ describe("app", () => {
       const word = "раионе";
       const res = await supertest(app).get(`/fuzzy-search`).query({ word });
       assert.equal(res.statusCode, 200);
-      assert.deepEqual(res.body.data[0].word, "район");
+      assert.deepEqual(res.body.data[0].word, "районе");
     });
   });
 });

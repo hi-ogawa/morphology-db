@@ -10,6 +10,7 @@
     "format:check": "prettier --check .",
     "db:reset": "typeorm schema:drop && typeorm schema:sync",
     "db:import": "node build/conllu-import",
+    "db:vocabulary": "node build/entity/vocabulary",
     "console": "node -e 'global.g = require(\"./build/console\")' -i --experimental-repl-await",
     "server": "nodemon build/server/main"
   },

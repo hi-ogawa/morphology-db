@@ -38,7 +38,7 @@ describe("Service", () => {
       await dbFixtures();
       const word = "раионе";
       const result = await Service.fuzzySearch(word);
-      assert.deepEqual(result[0].word, "район");
+      assert.deepEqual(result[0].word, "районе");
       assert.ok(typeof result[0].editdist, "number");
     });
   });

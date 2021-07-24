@@ -1,10 +1,11 @@
 import "mocha";
 import * as assert from "assert/strict";
 import { Lemma } from "./";
-import { dbHooks } from "../test-helper";
+import { Vocabulary, importVocabulary } from "./vocabulary";
+import { dbHooks, dbFixtures } from "../test-helper";
 
 describe("entity", () => {
-  dbHooks();
+  const db = dbHooks();
 
   describe("Lemma", () => {
     describe("findOrInsert", () => {
@@ -40,6 +41,25 @@ describe("entity", () => {
         const [lemma] = await Lemma.find({ word: "hi" });
         assert.equal(lemma?.word, "hi");
         assert.deepEqual(lemma?.forms, undefined);
+      });
+    });
+  });
+
+  describe("Vocabulary", () => {
+    describe("importVocabulary", () => {
+      it("case1", async () => {
+        await importVocabulary(db.connection!);
+        const result = await Vocabulary.find();
+        assert.deepEqual(result, []);
+      });
+
+      it("case2", async () => {
+        await dbFixtures();
+        await importVocabulary(db.connection!);
+        const result = await Vocabulary.find();
+        const words = result.map((o) => o.word);
+        assert.ok(words.includes("район"));
+        assert.ok(words.includes("районе"));
       });
     });
   });

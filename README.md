@@ -13,6 +13,7 @@ npm install
 npm run build
 npm run db:reset
 npm run db:import -- data/*.conllu
+npm run db:vocabulary
 
 # Explore data
 npm run console

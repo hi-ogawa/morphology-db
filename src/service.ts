@@ -1,4 +1,4 @@
-import { Lemma, Form } from "./entity";
+import { Lemma, Form, Vocabulary } from "./entity";
 
 type FuzzySearchResult = {
   word: string;
@@ -22,14 +22,11 @@ export class Service {
 
   static async fuzzySearch(
     word: string,
-    limit: number = 20
+    limit: number = 50
   ): Promise<FuzzySearchResult> {
-    // TODO: Limit first character to match exactly?
-    // TODO: Include Form word as well (currently too big since it includes duplicate words).
-    //       We can make separate table for all unique words and search that table.
-    const result = await Lemma.xqb()
-      .select("Lemma.word", "word")
-      .addSelect(`editdist3('${word}', Lemma.word)`, "editdist")
+    const result = await Vocabulary.xqb()
+      .select("Vocabulary.word", "word")
+      .addSelect(`editdist3('${word}', word)`, "editdist")
       .orderBy("editdist")
       .limit(limit)
       .getRawMany();
