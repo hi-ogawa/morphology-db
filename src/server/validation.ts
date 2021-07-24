@@ -19,6 +19,14 @@ const schemas = [
       word: { type: "string" },
     },
   },
+  {
+    $id: "pagination",
+    type: "object",
+    properties: {
+      page: { type: "number", minimum: 1, default: 1 },
+      perPage: { type: "number", minimum: 1, default: 25 },
+    },
+  },
 ];
 
 const ajv = new Ajv({

@@ -31,21 +31,30 @@ describe("app", () => {
       const word = "районе";
       const res = await supertest(app).get("/forms/search").query({ word });
       assert.equal(res.statusCode, 200);
-      assert.deepEqual(res.body.data, [
-        {
-          features: "Animacy=Inan|Case=Loc|Gender=Masc|Number=Sing",
-          id: 6,
-          index: 5,
-          upos: "NOUN",
-          word: "районе",
-          sentence: {
-            id: 1,
-            sentId: "dev-s6",
-            source: "__default__",
-            text: "Безгачиха -- деревня в Бабушкинском районе Вологодской области.",
-          },
+      assert.deepEqual(res.body, {
+        status: "success",
+        pagination: {
+          page: 1,
+          perPage: 25,
+          maxPage: 1,
+          count: 1,
         },
-      ]);
+        data: [
+          {
+            features: "Animacy=Inan|Case=Loc|Gender=Masc|Number=Sing",
+            id: 6,
+            index: 5,
+            upos: "NOUN",
+            word: "районе",
+            sentence: {
+              id: 1,
+              sentId: "dev-s6",
+              source: "__default__",
+              text: "Безгачиха -- деревня в Бабушкинском районе Вологодской области.",
+            },
+          },
+        ],
+      });
     });
   });
 
