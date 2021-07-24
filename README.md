@@ -20,12 +20,14 @@ npm run db:vocabulary              # Create vocabulary table for fuzzy search
 npm run console
 > await g.init()
 > await Promise.all([g.Lemma, g.Sentence, g.Form, g.Vocabulary].map(x => x.count()))
-[ 59745, 85789, 1422092, 181627 ]
+[ 61270, 85789, 1422092, 169985 ]
 > await g.Service.fuzzySearch("тежело", 5)
 [
   { word: 'тяжело', editdist: 100 },
   { word: 'тяжела', editdist: 180 },
   { word: 'нежели', editdist: 200 },
+  { word: 'тяжелы', editdist: 200 },
+  { word: 'весело', editdist: 200 }
 ]
 
 # Testing

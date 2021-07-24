@@ -24,8 +24,8 @@ export const example1: Example = [
     },
     words: [
       {
-        form: "безгачиха",
-        lemma: "безгачиха",
+        form: "Безгачиха",
+        lemma: "Безгачиха",
         upos: "PROPN",
         feats: "Animacy=Inan|Case=Nom|Gender=Fem|Number=Sing",
       },
@@ -38,7 +38,7 @@ export const example1: Example = [
       },
       { form: "в", lemma: "в", upos: "ADP", feats: "_" },
       {
-        form: "Бабушкинском",
+        form: "бабушкинском",
         lemma: "бабушкинский",
         upos: "ADJ",
         feats: "Case=Loc|Degree=Pos|Gender=Masc|Number=Sing",
@@ -50,7 +50,7 @@ export const example1: Example = [
         feats: "Animacy=Inan|Case=Loc|Gender=Masc|Number=Sing",
       },
       {
-        form: "Вологодской",
+        form: "вологодской",
         lemma: "вологодский",
         upos: "ADJ",
         feats: "Case=Gen|Degree=Pos|Gender=Fem|Number=Sing",

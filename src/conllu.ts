@@ -84,8 +84,8 @@ export function parseAnnotation(raw: string): Annotation {
       tokens;
     const isSpecial = upos === "PROPN" || feats.includes("Foreign=Yes");
     result.words.push({
-      form: isSpecial ? normalize(form) : form,
-      lemma: isSpecial ? normalize(lemma) : lemma,
+      form: isSpecial ? form : normalize(form),
+      lemma: isSpecial ? lemma : normalize(lemma),
       upos,
       feats,
     });
