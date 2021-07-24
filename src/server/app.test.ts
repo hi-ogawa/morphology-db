@@ -38,6 +38,12 @@ describe("app", () => {
           index: 5,
           upos: "NOUN",
           word: "районе",
+          sentence: {
+            id: 1,
+            sentId: "dev-s6",
+            source: "__default__",
+            text: "Безгачиха -- деревня в Бабушкинском районе Вологодской области.",
+          },
         },
       ]);
     });

@@ -12,9 +12,10 @@ export class FormsController extends ApplicationController {
     this.render(entity);
   }
 
+  // TODO: Use pagination since it can be over 10000 entries (e.g. "что")
   async search() {
     const { word } = this.validate("wordParam", this.req.query);
-    const entities = await Form.find({ word });
+    const entities = await Form.xfind({ word }, { relations: ["sentence"] });
     this.render(entities);
   }
 }
