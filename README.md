@@ -10,62 +10,33 @@ done
 
 # Import data to sqlite
 npm install
-npm run build
-npm run db:reset
-npm run db:import -- data/*.conllu
-npm run db:vocabulary
+npm run build                      # Build typescript
+npm run sqlite-spellfix            # Build sqlite extension
+npm run db:reset                   # Update db schema
+npm run db:import -- data/*.conllu # Import conllu files
+npm run db:vocabulary              # Create vocabulary table for fuzzy search
 
 # Explore data
 npm run console
 > await g.init()
-> await g.Lemma.count()
-59745
-> await g.Sentence.count()
-85789
-> await g.Form.count()
-1422092
-> form = await g.Form.findOne({ word: 'устал' }, { relations: ['lemma', 'sentence'] })
-Form {
-  id: 240555,
-  word: 'устал',
-  index: 9,
-  upos: 'VERB',
-  features: 'Aspect=Perf|Gender=Masc|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin|Voice=Act',
-  lemma: Lemma { id: 22116, word: 'устать' },
-  sentence: Sentence {
-    id: 12860,
-    source: 'data/ru_syntagrus-ud-test.conllu',
-    sentId: '2003Artist_mimansa.xml_86',
-    text: 'Он почувствовал, как, наконец, от нее устал.'
-  }
-}
-> lemma = await g.Lemma.findOne({ id: form.lemma.id }, { relations: ['forms'] })
-Lemma {
-  id: 22116,
-  word: 'устать',
-  forms: [
-    Form {
-      id: 136481,
-      word: 'устать',
-      index: 8,
-      upos: 'VERB',
-      features: 'Aspect=Perf|VerbForm=Inf|Voice=Act'
-    },
-    Form {
-      id: 193110,
-      word: 'устали',
-      index: 3,
-      upos: 'VERB',
-      features: 'Aspect=Perf|Mood=Ind|Number=Plur|Tense=Past|VerbForm=Fin|Voice=Act'
-    },
-    Form {
-      id: 240555,
-      word: 'устал',
-      index: 9,
-      upos: 'VERB',
-      features: 'Aspect=Perf|Gender=Masc|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin|Voice=Act'
-    },
-    ...
+> await Promise.all([g.Lemma, g.Sentence, g.Form, g.Vocabulary].map(x => x.count()))
+[ 59745, 85789, 1422092, 181627 ]
+> await g.Service.fuzzySearch("тежело", 5)
+[
+  { word: 'тяжело', editdist: 100 },
+  { word: 'тяжела', editdist: 180 },
+  { word: 'нежели', editdist: 200 },
+]
+
+# Testing
+npm run test
+
+# Run server
+npm run server
+
+# Deploy (see https://github.com/hi-ogawa/morphology-db/wiki/Deployment)
+docker-compose build backend
+bash run.sh deploy
 ```
 
 # References

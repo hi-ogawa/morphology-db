@@ -11,6 +11,7 @@
     "db:reset": "typeorm schema:drop && typeorm schema:sync",
     "db:import": "node build/conllu-import",
     "db:vocabulary": "node build/entity/vocabulary",
+    "sqlite-spellfix": "wget -nc -P data https://github.com/sqlite/sqlite/raw/version-3.36.0/ext/misc/spellfix.c && gcc -fPIC -shared -O3 data/spellfix.c -o data/spellfix.so",
     "console": "node -e 'global.g = require(\"./build/console\")' -i --experimental-repl-await",
     "server": "nodemon build/server/main"
   },
