@@ -119,6 +119,10 @@ describe("app", () => {
         index: 5,
         upos: "NOUN",
         word: "районе",
+        lemma: {
+          id: 6,
+          word: "район",
+        },
       });
     });
   });
