@@ -36,8 +36,10 @@ export const loggerMorgan = {
   write: (message: string) => logger.info(message.trim()),
 };
 
-logger.add(fileTransport);
+if (config.ENV !== "production") {
+  logger.add(fileTransport);
+}
 
-if (config.ENV === "development") {
+if (config.ENV !== "test") {
   logger.add(consoleTransport);
 }

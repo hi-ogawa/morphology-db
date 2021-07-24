@@ -20,6 +20,7 @@ DEPLOY_OPTS=(
   --memory=512Mi   # default 256Mi
   --concurrency=10 # default 80
   --timeout=1m     # default 5m
+  --flags-file=run-config-flags.yml
 )
 
 # Specify local image name
