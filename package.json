@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "frontend": "cd frontend && npm run server",
     "backend": "cd backend && npm run server"
   }
 }

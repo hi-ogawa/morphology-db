@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+}
+
+html {
+  --c-gray-1: rgb(22, 21, 18);
+  --c-gray-2: rgb(38, 36, 33);
+  --c-gray-3: rgb(60, 57, 52);
+  --c-gray-4: rgb(186, 186, 186);
+  --c-gray-5: rgb(255, 255, 255);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Noto Sans";
+  font-size: 16px;
+  background: var(--c-gray-1);
+  color: var(--c-gray-4);
+}
