@@ -1,10 +1,8 @@
 import * as express from "express";
-import { middlewares, onNotFound, onError } from "./handlers";
-import { routes } from "./routes";
+import { middlewares } from "./middlewares";
+import { router } from "./router";
 
 export const app = express();
 
 app.use(middlewares);
-app.use(routes);
-app.use(onNotFound);
-app.use(onError);
+app.use(router);

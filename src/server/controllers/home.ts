@@ -13,4 +13,8 @@ export class HomeController extends ApplicationController {
     const result = await Service.fuzzySearch(word);
     this.render(result);
   }
+
+  notFound() {
+    this.handleNotFound();
+  }
 }
